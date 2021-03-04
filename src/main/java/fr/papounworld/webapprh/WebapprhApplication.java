@@ -37,6 +37,24 @@ public class WebapprhApplication implements CommandLineRunner {
 		System.out.println(iterator.next());
 	}
 	
+	Employee sasha = new Employee();
+	sasha.setFirstname("Sasha");
+	sasha.setLastname("Papon");
+	sasha.setMail("sasha@cool.com");
+	sasha.setPassword("aaa");
+	employeeProxy.createEmployee(sasha);
+	
+	
+Employee employee3 = employeeProxy.getEmployee(5);
+System.out.println(employee3.getFirstname());
+
+employee3.setFirstname("Nigros");
+employeeProxy.updateEmployee(employee3);
+System.out.println(employee3.getFirstname());
+
+employeeProxy.deleteEmployee(1);
+
+	
 	}
 
 }

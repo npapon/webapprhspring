@@ -2,6 +2,7 @@ package fr.papounworld.webapprh.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -62,5 +63,97 @@ public class EmployeeProxy {
 	//	on récupère notre objet Iterable<Employee> grâce à la méthode getBody() de l’objet Response.
 		return response.getBody();
 	}
+	
+	
+	//B. CETTE METHODE PERMET CREER UN EMPLOYEE DANS L API
+	
+	public Employee createEmployee(Employee employee) {
+		//On créé l'url de l'api à appelert
+		String baseApiUrl = customproperties.getApiUrl();
+
+
+				
+		String createEmployesUrl = baseApiUrl + "/employee" ;
+		//RestTemplate permet d’exécuter une requête HTTP
+		RestTemplate restTemplate = new RestTemplate();
+		//La grande différence correspond au nouvel objet HttpEntity 
+		//qui, comme vous le constatez, a été instancié avec 
+		//en paramètre du constructeur l’objet Employee 
+
+
+		HttpEntity<Employee> request = new HttpEntity<Employee>(employee);
+		
+		//on appelle la méthode exchange pour récupérer la réponse
+		ResponseEntity<Employee> response  = restTemplate.exchange(createEmployesUrl, HttpMethod.POST,request,Employee.class);
+		
+		log.debug("Create employee call" + response.getStatusCode().toString());
+		
+		//	on récupère notre objet Employee grâce à la méthode getBody() de l’objet Response.
+			return response.getBody();
+	}
+	
+	
+	//C. CETTE METHODE PERMET DE METTRE A RECUPERER UN EMPLOYEE DANS L API
+	
+	public Employee getEmployee(int id){
+		
+		String baseApiUrl = customproperties.getApiUrl();
+		String getEmployesUrl = baseApiUrl + "/employee/"  + id;
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		ResponseEntity<Employee> response  = restTemplate.exchange(getEmployesUrl, HttpMethod.GET,null,Employee.class);
+		
+	log.debug("get employee call" + response.getStatusCode().toString());
+		
+		
+			return response.getBody() ;
+	}
+	
+	//D. CETTE METHODE PERMET DE METTRE A JOUR UN EMPLOYEE DANS L API
+	
+	/**
+	 * Update an employee - using the PUT HTTP Method.
+	 * @param e Existing employee to update
+	 */
+	
+	public Employee updateEmployee(Employee employee) {
+		//On créé l'url de l'api à appelert
+		String baseApiUrl = customproperties.getApiUrl();
+
+
+				
+		String updateEmployesUrl = baseApiUrl + "/employee/"  + employee.getId();
+		//RestTemplate permet d’exécuter une requête HTTP
+		RestTemplate restTemplate = new RestTemplate();
+		//La grande différence correspond au nouvel objet HttpEntity 
+		//qui, comme vous le constatez, a été instancié avec 
+		//en paramètre du constructeur l’objet Employee 
+
+
+		HttpEntity<Employee> request = new HttpEntity<Employee>(employee);
+		
+		//on appelle la méthode exchange pour récupérer la réponse
+		ResponseEntity<Employee> response  = restTemplate.exchange(updateEmployesUrl, HttpMethod.PUT,request,Employee.class);
+	
+		log.debug("Update employee call" + response.getStatusCode().toString());
+		
+		//	on récupère notre objet Employee grâce à la méthode getBody() de l’objet Response.
+			return response.getBody();
+	}
+	
+	
+	//E. CETTE METHODE PERMET D'EFFACER EMPLOYEE DANS L API
+	public void deleteEmployee(int id) {
+		String baseApiUrl = customproperties.getApiUrl();
+		String deleteEmployesUrl = baseApiUrl + "/employee/"  + id;
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		ResponseEntity<Void> response  = restTemplate.exchange(deleteEmployesUrl, HttpMethod.DELETE,null,Void.class);
+		log.debug("Delete Employee call " + response.getStatusCode().toString());
+		
+	}
+	
 
 }
