@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhml" xmlns:th="http://www.thymeleaf.org">
+    
+    <head>
+        <meta charset="UTF-8">
+        <title>Employee Web Application</title>
+    </head>
+    <body>
+        <h2 class="h2">Liste des employées</h2>
+        
+ <a th:href="@{https://gamergen.com}">lien vers le site gamergen</a><br/>
+  <a th:href="@{/supervision}">lien vers une page avec méthode qui fait rien dans le contrôler </a><br/>
+  <a th:href="@{/deleteEmployee/76}">lien vers la suppression d'un utilisateur ciblé</a><br/>
+ 
+        <table>
+            <thead>
+                <tr>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${tousLesEmployes.empty}">
+                    <td colspan="3">Aucun employée en base de données</td>
+                </tr>
+                <tr th:each="employee: ${tousLesEmployes}">
+                    <td><span th:text="${employee.firstname}"> Prénom </span></td>
+                    <td><span th:text="${employee.lastname}"> Nom </span></td>
+                    <td><a th:href="@{/deleteEmployee/{id}(id=${employee.id})}">supprimer</a></td>
+                 SE
+                    
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
