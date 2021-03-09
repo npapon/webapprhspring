@@ -27,7 +27,7 @@
                     <td><span th:text="${employee.firstname}"> Prénom </span></td>
                     <td><span th:text="${employee.lastname}"> Nom </span></td>
                     <td><a th:href="@{/deleteEmployee/{id}(id=${employee.id})}">supprimer</a></td>
-                 SE
+  					<td><a th:href="@{/updateEmployee/{id}(id=${employee.id})}">modifier</a></td>
                     
                 </tr>
             </tbody>

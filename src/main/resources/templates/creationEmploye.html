@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhml" xmlns:th="http://www.thymeleaf.org">
+    
+    <head>
+        <meta charset="UTF-8">
+        <title>Employee Web Application</title>
+    </head>
+    <body>
+        <h2 class="h2">Créer un employé</h2>
+        
+        <form method="post" th:action="@{/saveEmployee}" th:object="${employee}">
+    <input type="text" th:field="*{firstname}">
+    <input type="text" th:field="*{lastname}">
+    <input type="text" th:field="*{mail}">
+    <input type="password" th:field="*{password}">
+    <button type="submit" >Créer</button>
+</form>
+        
+
+    </body>
+</html>
