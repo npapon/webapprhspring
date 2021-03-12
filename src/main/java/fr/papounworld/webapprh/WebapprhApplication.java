@@ -16,6 +16,7 @@ import lombok.Getter;
 @SpringBootApplication
 public class WebapprhApplication implements CommandLineRunner {
 
+
 	@Autowired
 	private CustomProperties custumProperties ;
 	
